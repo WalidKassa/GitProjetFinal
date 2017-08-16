@@ -37,17 +37,41 @@ public class Utilisateur {
 	@Column
 	private String prenom;
 	
-	@Column
-	private String motDePasse;
 	
+	@OneToOne
+	@JoinColumn(name="id_Utilisateur_Login", referencedColumnName="id")
+	private Login login;
+	
+	
+	
+	public Login getLogin() {
+		return login;
+	}
+
+
+
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
+
+
+
+
+
+
+
+
+
+
 	@Column(name="Numero_de_telephone")
 	private String numeroTel;
 	
 	@Column
 	private String email;
 	
-	@Column
-	private boolean admin;
+	
 	
 	@OneToOne(mappedBy= "user")
 	private Adresse adresse;
@@ -86,15 +110,15 @@ public class Utilisateur {
 
 
 
-	public Utilisateur(String nom, String prenom, String motDePasse, String numeroTel, String email, boolean admin,
+	public Utilisateur(String nom, String prenom,  String numeroTel, String email, 
 			Adresse adresse, Etablissement etablissement) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
-		this.motDePasse = motDePasse;
+		
 		this.numeroTel = numeroTel;
 		this.email = email;
-		this.admin = admin;
+		
 		this.adresse = adresse;
 		this.etablissement = etablissement;
 		
@@ -117,16 +141,7 @@ public class Utilisateur {
 
 
 
-	public String getMotDePasse() {
-		return motDePasse;
-	}
-
-
-
-
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
-	}
+	
 
 
 
@@ -136,16 +151,6 @@ public class Utilisateur {
 	@Version
 	private int version;
 
-	public boolean isAdmin() {
-		return admin;
-	}
-
-
-
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
 
 
 

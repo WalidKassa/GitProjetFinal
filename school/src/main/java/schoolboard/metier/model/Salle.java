@@ -22,6 +22,8 @@ import javax.persistence.Version;
 public class Salle {
 
 	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

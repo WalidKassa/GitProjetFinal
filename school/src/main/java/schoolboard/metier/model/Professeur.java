@@ -14,10 +14,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.persistence.JoinColumn;
 
 @Entity
 public class Professeur {
+	
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +42,7 @@ public class Professeur {
 	@ManyToMany
 	@JoinTable(name="prof_matiere",
 	joinColumns= @JoinColumn(name="pl_matiere_id", referencedColumnName="id"), inverseJoinColumns= @JoinColumn(name="pl_prof_id", referencedColumnName="id"))
+	@Size(min=1,max=3)
 	private List<Matiere> Enseigne;
 	
 	@OneToMany(mappedBy="professeur")
@@ -57,7 +61,9 @@ public class Professeur {
 	}
 
 	public void setEnseigne(List<Matiere> enseigne) {
-		Enseigne = enseigne;
+		
+			Enseigne = enseigne;
+		
 	}
 
 	public List<EmploiDuTemps> getEmp() {

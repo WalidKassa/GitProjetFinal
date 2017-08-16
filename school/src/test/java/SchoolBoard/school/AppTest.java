@@ -1,8 +1,6 @@
 package SchoolBoard.school;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,8 +17,8 @@ import junit.framework.Assert;
 import schoolboard.dao.AdresseDao;
 import schoolboard.dao.ClasseDao;
 import schoolboard.dao.EmploiTempsDao;
-
 import schoolboard.dao.EtablissementDao;
+import schoolboard.dao.LoginDao;
 import schoolboard.dao.MatiereDao;
 import schoolboard.dao.ProfesseurDao;
 import schoolboard.dao.SalleDao;
@@ -30,6 +28,7 @@ import schoolboard.metier.model.Classe;
 import schoolboard.metier.model.EmploiDuTemps;
 import schoolboard.metier.model.EmploiTempsPk;
 import schoolboard.metier.model.Etablissement;
+import schoolboard.metier.model.Login;
 import schoolboard.metier.model.Matiere;
 import schoolboard.metier.model.Professeur;
 import schoolboard.metier.model.Salle;
@@ -69,6 +68,9 @@ public class AppTest
 	@Autowired
 	private EmploiTempsDao empDao;
 	
+	@Autowired
+	private LoginDao logDao;
+	
 	
 	
     /**
@@ -86,6 +88,7 @@ public class AppTest
 	@Test
     public void testApp()
     {
+		Login login = new Login();
     	  Adresse adrClient = new Adresse();
   		adrClient.setRue("rue de la guerre");
   		adrClient.setCodePostal(75009);
@@ -101,6 +104,14 @@ public class AppTest
   		user.setAdresse(adrClient);
   		
   		
+  		
+  		
+		login.setAdmin(false);
+		login.setMotDePasse("kw");
+		login.setLogin("walid");
+		//login.setUser(user);
+  		
+  		
   		List<Utilisateur> userList = new ArrayList();
   		userList.add(user);
   		
@@ -109,6 +120,7 @@ public class AppTest
   		etab.setTelephone(1452l);
   		etab.setUser(userList);
   		user.setEtablissement(etab);
+  		user.setLogin(login);
   		etab.setAdresse(adrClient);
   		
   		Matiere matiere = new Matiere();
@@ -154,9 +166,10 @@ public class AppTest
   		
   		
   		
-  		
   		adresseDao.create(adrClient);
   		etabDao.create(etab);
+  		
+  		logDao.create(login);
   		userDao.create(user);
   		classeDao.create(classe);
   		salleDao.create(salle);
@@ -165,6 +178,7 @@ public class AppTest
   		//matiereDao.create(matiere2);
   		//matiereDao.delete(matiere2);
   		profDao.create(prof);
+  		
   		matiere.setNom("physique");
   		matiereDao.update(matiere);
   		
